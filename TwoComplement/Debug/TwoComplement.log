@@ -1,0 +1,3 @@
+﻿  TwoComplement.cpp
+d:\project\twoscomplement\twocomplement\twocomplement.cpp(64): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  TwoComplement.vcxproj -> D:\Project\TwosComplement\TwoComplement\Debug\TwoComplement.exe
