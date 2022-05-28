@@ -1,10 +1,6 @@
+#include "TwoComplement.h"
 
-#include <iostream>
-#include<math.h>
-
-bool arrBinary[8] = { 0 };
-
-void printArray()
+void printBinary(bool arrBinary[8])
 {
 	std::cout << "\n";
 	for (int i = 7; i >= 0; i--)
@@ -14,28 +10,25 @@ void printArray()
 
 bool isPositive(uint8_t num)
 {
-	if (((num >> 7) & 0x01) == 0)
-		return true;
-	return false;
+	return !((num >> 7) & 0x01);
 }
 
-
-void revertBits()
+void revertBits(bool arrBinary[8])
 {
 	for (int i = 0; i < 8; i++)
 		arrBinary[i] = !arrBinary[i];
 }
 
-void getBits(uint8_t num)
+void getBits(uint8_t num, bool arrBinary[8])
 {
 	for (int i = 0; i < 8; i++)
 		arrBinary[i] = (num >> i) & 0x01;
 }
 
-void calculate2Complement(uint8_t num)
+void calculate2Complement(uint8_t num, bool arrBinary[8])
 {
-	getBits(num);
-	revertBits();
+	getBits(num, arrBinary);
+	revertBits(arrBinary);
 
 	bool temp = 1;
 	for (int i = 0; i < 8; i++)
@@ -54,20 +47,19 @@ void calculate2Complement(uint8_t num)
 
 int getValueSigned(uint8_t num)
 {
+	bool arrBinary[8] = { 0 };
 	int result = 0;
-	if (isPositive(num) == true)
+	if (isPositive(num))
 		result = num;
 	else
 	{
-		calculate2Complement(num);
+		calculate2Complement(num, arrBinary);
 		for (int i = 0; i < 8; i++)
 			result += arrBinary[i] * pow(2, i);
 		result = -result;
 	}
 	return result;
 }
-
-
 
 int main()
 {
@@ -87,8 +79,6 @@ int main()
 
 	std::cout << "\nPrint array as signed using 2Complement:" << std::endl;
 	for (int i = 0; i < 10; i++)
-	{
 		std::cout << (int)getValueSigned(arr[i]) << "\t";
-	}
 }
 
